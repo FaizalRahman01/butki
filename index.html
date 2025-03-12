@@ -5,6 +5,113 @@
   <title>Drag Papers ❤️</title>
   <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Short+Stack&amp;family=Homemade+Apple&amp;display=swap'>
   <link rel="stylesheet" href="butki.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
+
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: 2500px;
+      background-image: url("f:/html/bgforbutki.jpg");
+      background-position: center center;
+    }
+
+    .paper {
+      background-image: url("f:/html/page design.jpg");
+      background-size: 900px;
+      background-position: center center;
+      padding: 20px 100px;
+      transform: rotateZ(-5deg);
+      box-shadow: 1px 15px 20px 0px rgba(0,0,0,0.5);
+      position: absolute;
+    }
+
+    .paper.heart {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      padding: 0;
+      border-radius: 50%;
+    }
+
+    .paper.image {
+      padding: 10px;
+      height: 500px;
+    }
+    .paper.image p {
+      font-size: 30px;
+    }
+
+    img {
+      max-height: 200px;
+      width: 100%;
+      user-select: none;
+    }
+
+    .paper.heart::after {
+      content: "";
+      background-image: url("F:/html/heart.png");
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-size: 150px;
+      background-position: center center;
+      background-repeat: no-repeat;
+      opacity: 0.6;
+    }
+
+    p {
+      font-family: 'Zeyada', cursive;
+      font-size: 50px;
+      color: rgb(0,0,100);
+      opacity: 0.75;
+      user-select: none;
+    }
+
+    /* Love Hearts Animation */
+    .hearts-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+    .heart {
+        position: absolute; bottom: 0; width: 20px; height: 20px; background: red;
+        clip-path: polygon(50% 0%, 100% 30%, 80% 100%, 50% 80%, 20% 100%, 0% 30%);
+        animation: float 5s linear infinite;
+        opacity: 0.8;
+    }
+    @keyframes float {
+        0% { transform: translateY(0) scale(1); }
+        100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+    }
+
+    /* Fireworks Canvas */
+    #fireworks {
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;
+    }
+
+    /* Balloons Animation */
+    .balloons-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+    .balloon {
+        position: absolute; bottom: 0; width: 40px; height: 60px; border-radius: 50%;
+        background: red; animation: balloonFloat 6s ease-in-out infinite;
+    }
+    @keyframes balloonFloat {
+        0% { transform: translateY(100vh) scale(1); }
+        100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+    }
+
+    /* Happy Birthday Text */
+    .birthday-text {
+        position: fixed; top: 20%; left: 50%; transform: translateX(-50%);
+        font-size: 3em; color: gold; font-weight: bold; text-shadow: 2px 2px 10px red;
+        animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+        0% { text-shadow: 2px 2px 10px red; }
+        100% { text-shadow: 2px 2px 20px yellow; }
+    }
+  </style>
 </head>
 <body>
 
@@ -66,118 +173,170 @@
     <p class="p1">Drag the papers to move!</p>
   </div>
 
-  <script src="butki.js" defer></script>
-
   <script>
-  // Love Animation (Floating Hearts)
-  function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = Math.random() * 2 + 3 + "s";
-      document.querySelector(".hearts-container").appendChild(heart);
-      setTimeout(() => { heart.remove(); }, 5000);
-  }
-  setInterval(createHeart, 300);
+    // Love Animation (Floating Hearts)
+    function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+        document.querySelector(".hearts-container").appendChild(heart);
+        setTimeout(() => { heart.remove(); }, 5000);
+    }
+    setInterval(createHeart, 300);
 
-  // Floating Balloons
-  function createBalloon() {
-      const balloon = document.createElement("div");
-      balloon.className = "balloon";
-      balloon.style.left = Math.random() * 100 + "vw";
-      balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-      document.querySelector(".balloons-container").appendChild(balloon);
-      setTimeout(() => { balloon.remove(); }, 6000);
-  }
-  setInterval(createBalloon, 500);
+    // Floating Balloons
+    function createBalloon() {
+        const balloon = document.createElement("div");
+        balloon.className = "balloon";
+        balloon.style.left = Math.random() * 100 + "vw";
+        balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        document.querySelector(".balloons-container").appendChild(balloon);
+        setTimeout(() => { balloon.remove(); }, 6000);
+    }
+    setInterval(createBalloon, 500);
 
-  // Birthday Fireworks Animation
-  const canvas = document.getElementById("fireworks");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+    // Birthday Fireworks Animation
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-  function random(min, max) { return Math.random() * (max - min) + min; }
+    function random(min, max) { return Math.random() * (max - min) + min; }
 
-  function Firework(x, y) {
-      this.x = x;
-      this.y = y;
-      this.radius = random(2, 4);
-      this.color = `hsl(${random(0, 360)}, 100%, 60%)`;
-      this.speedX = random(-3, 3);
-      this.speedY = random(-3, 3);
-  }
+    function Firework(x, y) {
+        this.x = x;
+        this.y = y;
+        this.radius = random(2, 4);
+        this.color = `hsl(${random(0, 360)}, 100%, 60%)`;
+        this.speedX = random(-3, 3);
+        this.speedY = random(-3, 3);
+    }
 
-  Firework.prototype.update = function() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      this.radius -= 0.05;
-  };
+    Firework.prototype.update = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.radius -= 0.05;
+    };
 
-  let fireworks = [];
+    let fireworks = [];
 
-  function animateFireworks() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      fireworks = fireworks.filter(f => f.radius > 0);
-      fireworks.forEach(f => { f.update(); drawFirework(f); });
-      requestAnimationFrame(animateFireworks);
-  }
+    function animateFireworks() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        fireworks = fireworks.filter(f => f.radius > 0);
+        fireworks.forEach(f => { f.update(); drawFirework(f); });
+        requestAnimationFrame(animateFireworks);
+    }
 
-  function drawFirework(f) {
-      ctx.beginPath();
-      ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
-      ctx.fillStyle = f.color;
-      ctx.fill();
-  }
+    function drawFirework(f) {
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+        ctx.fillStyle = f.color;
+        ctx.fill();
+    }
 
-  canvas.addEventListener("click", (e) => {
-      for (let i = 0; i < 20; i++) { fireworks.push(new Firework(e.clientX, e.clientY)); }
-  });
+    canvas.addEventListener("click", (e) => {
+        for (let i = 0; i < 20; i++) { fireworks.push(new Firework(e.clientX, e.clientY)); }
+    });
 
-  animateFireworks();
+    animateFireworks();
+
+    let highestZ = 1;
+
+    class Paper {
+      holdingPaper = false;
+      mouseTouchX = 0;
+      mouseTouchY = 0;
+      mouseX = 0;
+      mouseY = 0;
+      prevMouseX = 0;
+      prevMouseY = 0;
+      velX = 0;
+      velY = 0;
+      rotation = Math.random() * 30 - 15;
+      currentPaperX = 0;
+      currentPaperY = 0;
+      rotating = false;
+
+      init(paper) {
+        document.addEventListener('mousemove', (e) => {
+          if(!this.rotating) {
+            this.mouseX = e.clientX;
+            this.mouseY = e.clientY;
+            
+            this.velX = this.mouseX - this.prevMouseX;
+            this.velY = this.mouseY - this.prevMouseY;
+          }
+            
+          const dirX = e.clientX - this.mouseTouchX;
+          const dirY = e.clientY - this.mouseTouchY;
+          const dirLength = Math.sqrt(dirX*dirX+dirY*dirY);
+          const dirNormalizedX = dirX / dirLength;
+          const dirNormalizedY = dirY / dirLength;
+
+          const angle = Math.atan2(dirNormalizedY, dirNormalizedX);
+          let degrees = 180 * angle / Math.PI;
+          degrees = (360 + Math.round(degrees)) % 360;
+          if(this.rotating) {
+            this.rotation = degrees;
+          }
+
+          if(this.holdingPaper) {
+            if(!this.rotating) {
+              this.currentPaperX += this.velX;
+              this.currentPaperY += this.velY;
+            }
+            this.prevMouseX = this.mouseX;
+            this.prevMouseY = this.mouseY;
+
+            paper.style.transform = `translateX(${this.currentPaperX}px) translateY(${this.currentPaperY}px) rotateZ(${this.rotation}deg)`;
+          }
+        })
+
+        paper.addEventListener('mousedown', (e) => {
+          if(this.holdingPaper) return; 
+          this.holdingPaper = true;
+          
+          paper.style.zIndex = highestZ;
+          highestZ += 1;
+          
+          if(e.button === 0) {
+            this.mouseTouchX = this.mouseX;
+            this.mouseTouchY = this.mouseY;
+            this.prevMouseX = this.mouseX;
+            this.prevMouseY = this.mouseY;
+          }
+          if(e.button === 2) {
+            this.rotating = true;
+          }
+        });
+        window.addEventListener('mouseup', () => {
+          this.holdingPaper = false;
+          this.rotating = false;
+        });
+      }
+    }
+
+    const papers = Array.from(document.querySelectorAll('.paper'));
+
+    papers.forEach(paper => {
+      const p = new Paper();
+      p.init(paper);
+    });
+
+    // Autoplay Music on First Click
+    document.addEventListener('click', function() {
+      document.getElementById('bgMusic').play();
+    }, { once: true });
+
+    // Play & Pause Functions
+    function playMusic() {
+      document.getElementById('bgMusic').play();
+    }
+    function pauseMusic() {
+      document.getElementById('bgMusic').pause();
+    }
   </script>
-
-  <style>
-  /* Love Hearts Animation */
-  .hearts-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-  .heart {
-      position: absolute; bottom: 0; width: 20px; height: 20px; background: red;
-      clip-path: polygon(50% 0%, 100% 30%, 80% 100%, 50% 80%, 20% 100%, 0% 30%);
-      animation: float 5s linear infinite;
-      opacity: 0.8;
-  }
-  @keyframes float {
-      0% { transform: translateY(0) scale(1); }
-      100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
-  }
-
-  /* Fireworks Canvas */
-  #fireworks {
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;
-  }
-
-  /* Balloons Animation */
-  .balloons-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-  .balloon {
-      position: absolute; bottom: 0; width: 40px; height: 60px; border-radius: 50%;
-      background: red; animation: balloonFloat 6s ease-in-out infinite;
-  }
-  @keyframes balloonFloat {
-      0% { transform: translateY(100vh) scale(1); }
-      100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
-  }
-
-  /* Happy Birthday Text */
-  .birthday-text {
-      position: fixed; top: 20%; left: 50%; transform: translateX(-50%);
-      font-size: 3em; color: gold; font-weight: bold; text-shadow: 2px 2px 10px red;
-      animation: glow 2s infinite alternate;
-  }
-  @keyframes glow {
-      0% { text-shadow: 2px 2px 10px red; }
-      100% { text-shadow: 2px 2px 20px yellow; }
-  }
-  </style>
 
 </body>
 </html>
